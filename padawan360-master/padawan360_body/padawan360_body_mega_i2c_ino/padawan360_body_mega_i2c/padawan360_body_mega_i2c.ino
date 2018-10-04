@@ -52,7 +52,7 @@ const byte TURNSPEED = 70;
 // If using a speed controller for the dome, sets the top speed. You'll want to vary it potenitally
 // depending on your motor. My Pittman is really fast so I dial this down a ways from top speed.
 // Use a number up to 127 for serial
-const byte DOMESPEED = 110;
+const byte DOMESPEED = 80;
 
 // Ramping- the lower this number the longer R2 will take to speedup or slow down,
 // change this by incriments of 1
@@ -79,7 +79,7 @@ const int SABERTOOTHBAUDRATE = 9600;
 // Set the baude rate for the Syren motor controller (dome)
 // for packetized options are: 2400, 9600, 19200 and 38400. I think you need to pick one that works
 // and I think it varies across different firmware versions.
-const int DOMEBAUDRATE = 2400;
+const int DOMEBAUDRATE = 9600;
 
 
 // I have a pin set to pull a relay high/low to trigger my upside down compressed air like R2's extinguisher
