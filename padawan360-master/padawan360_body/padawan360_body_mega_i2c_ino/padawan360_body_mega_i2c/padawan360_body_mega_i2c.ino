@@ -244,9 +244,12 @@ void loop() {
       isInAutomationMode = false;
       automateAction = 0;
       mp3Trigger.play(53);
+      triggerI2C(11, 2);
     } else {
       isInAutomationMode = true;
       mp3Trigger.play(52);
+      |triggerI2C(11, 4);
+
     }
   }
 
