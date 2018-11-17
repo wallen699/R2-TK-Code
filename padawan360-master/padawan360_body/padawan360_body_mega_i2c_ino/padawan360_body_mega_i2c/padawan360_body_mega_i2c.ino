@@ -66,7 +66,7 @@ const byte RAMPING = 5;
 // serial modes so just manage and check it in software here
 // use the lowest number with no drift
 // DOMEDEADZONERANGE for the left stick, DRIVEDEADZONERANGE for the right stick
-const byte DOMEDEADZONERANGE = 20;
+const byte DOMEDEADZONERANGE = 30;
 const byte DRIVEDEADZONERANGE = 20;
 
 
@@ -248,7 +248,7 @@ void loop() {
     } else {
       isInAutomationMode = true;
       mp3Trigger.play(52);
-      |triggerI2C(11, 4);
+      triggerI2C(11, 4);
 
     }
   }
