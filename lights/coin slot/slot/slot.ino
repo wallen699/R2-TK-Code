@@ -3,8 +3,8 @@
   #include <avr/power.h>
 #endif
 
-#define VENT_PIN 9
-#define SLOT_PIN 8
+#define VENT_PIN 6
+#define SLOT_PIN 5
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
