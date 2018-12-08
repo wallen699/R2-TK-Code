@@ -9,7 +9,10 @@
 #define VENT_PIN 6
 #define SLOT_PIN 5
 
+#define LEFT_PIN 9
+#define RIGHT_PIN 8
 
+#define LEG_BRIGHTNESS 75
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
@@ -24,6 +27,9 @@ Adafruit_NeoPixel rearspin = Adafruit_NeoPixel(16, REARPIN, NEO_RGBW + NEO_KHZ80
 
 Adafruit_NeoPixel vents = Adafruit_NeoPixel(2, VENT_PIN, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel slot = Adafruit_NeoPixel(6, SLOT_PIN, NEO_GRB + NEO_KHZ800);
+
+Adafruit_NeoPixel leftleg = Adafruit_NeoPixel(55, LEFT_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel rightleg = Adafruit_NeoPixel(55, RIGHT_PIN, NEO_GRB + NEO_KHZ800);
 
 uint32_t magenta = vents.Color(255, 0, 255);
 uint32_t red = vents.Color(255, 0, 0);
@@ -49,6 +55,14 @@ void setup() {
   vents.begin();
   vents.setBrightness(255);
   vents.show(); // Initialize all pixels to 'off'
+
+  leftleg.begin();
+  leftleg.setBrightness(LEG_BRIGHTNESS);
+  rightleg.begin();
+  rightleg.setBrightness(LEG_BRIGHTNESS);
+
+  leftleg.show();
+  rightleg.show();
   
   slot.begin();
   slot.setBrightness(128);
@@ -67,6 +81,8 @@ void loop() {
     //slot_dot_up(blue,50);
     //slot_dot_down(blue,50);
     slot_dot_bounce(blue,10);
+    LeftGlow(magenta);
+    RightGlow(magenta);
   
   //10 is fast
   delay(10);
