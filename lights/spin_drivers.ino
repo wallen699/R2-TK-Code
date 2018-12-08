@@ -53,3 +53,19 @@ void RearSpinner()
     rearspin.show();
     
 }
+
+void SpinnersOff()
+{
+
+    //Clear All pixels
+    for (uint16_t ii=0; ii < 16; ii++)
+    {
+        frontspin.setPixelColor(ii, 0);        //turn every  pixel off
+        rearspin.setPixelColor(ii, 0);        //turn every  pixel off
+
+    }
+    
+    //Display
+    frontspin.show();
+    rearspin.show();
+}
