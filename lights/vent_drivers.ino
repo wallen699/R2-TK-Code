@@ -128,3 +128,21 @@ void slot_dot_bounce(uint32_t c, uint8_t wait)
   slot.show();
   }  
 }
+
+void SlotAlt(uint32_t colour,int start)
+{
+    //Set All pixels
+    for (uint16_t ii=0; ii < slot.numPixels(); ii++)
+    {
+        slot.setPixelColor(ii, 0);        //turn every  pixel off
+    }
+
+    //Set All pixels
+    for (uint16_t ii=start; ii < slot.numPixels(); ii=ii+2)
+    {
+        slot.setPixelColor(ii, colour);        //set every  2nd pixel
+    }
+    
+    //Display
+    slot.show();
+}
