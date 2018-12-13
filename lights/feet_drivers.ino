@@ -85,3 +85,17 @@ void RightGlow(uint32_t foot_colour)
     rightleg.show();
     
 }
+
+void CenterGlow(uint32_t foot_colour)
+{
+    //Clear All pixels
+    for (uint16_t ii=0; ii < 44; ii++)
+    {
+        //left.setPixelColor(ii, 0);        //turn every  pixel off
+        centerleg.setPixelColor(ii, foot_colour);
+
+    }
+    
+    centerleg.show();
+    
+}

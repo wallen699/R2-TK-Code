@@ -11,6 +11,7 @@
 
 #define LEFT_PIN 9
 #define RIGHT_PIN 8
+#define CENTER_PIN 7
 
 #define LEG_BRIGHTNESS 75
 
@@ -30,6 +31,8 @@ Adafruit_NeoPixel slot = Adafruit_NeoPixel(6, SLOT_PIN, NEO_GRB + NEO_KHZ800);
 
 Adafruit_NeoPixel leftleg = Adafruit_NeoPixel(55, LEFT_PIN, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel rightleg = Adafruit_NeoPixel(55, RIGHT_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel centerleg = Adafruit_NeoPixel(44, CENTER_PIN, NEO_GRB + NEO_KHZ800);
+
 
 uint32_t magenta = vents.Color(255, 0, 255);
 uint32_t red = vents.Color(255, 0, 0);
@@ -61,8 +64,12 @@ void setup() {
   rightleg.begin();
   rightleg.setBrightness(LEG_BRIGHTNESS);
 
+  centerleg.begin();
+  centerleg.setBrightness(LEG_BRIGHTNESS);
+
   leftleg.show();
   rightleg.show();
+  centerleg.show();
   
   slot.begin();
   slot.setBrightness(128);
@@ -72,10 +79,40 @@ void setup() {
 
 }
 // G R B W
+void police()
+{
+  //Start
+  SpinnersOff();
+  
+  for (uint16_t ii=0; ii < 5; ii++)
+  {
+    LeftGlow(blue);
+    RightGlow(0);
+    CenterGlow(blue);
+    SlotAlt(blue,0);
+    vents_colour(blue,0);
+    delay(500);
+    LeftGlow(0);
+    RightGlow(blue);
+    CenterGlow(0);
+    SlotAlt(blue,1);
+    vents_colour(0,blue);
+    delay(500);
+  }
+
+  SpinnersOff();
+    LeftGlow(0);
+    RightGlow(0);
+    CenterGlow(0);
+    slot_off();
+    vents_colour(0,0);
+  
+}
 
 void loop() {
 
-  FrontSpinner();
+police();
+FrontSpinner();
   RearSpinner();
   vents_colour(red,green);
     //slot_dot_up(blue,50);
@@ -83,6 +120,7 @@ void loop() {
     slot_dot_bounce(blue,10);
     LeftGlow(magenta);
     RightGlow(magenta);
+    CenterGlow(magenta);
   
   //10 is fast
   delay(10);
