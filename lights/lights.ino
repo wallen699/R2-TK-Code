@@ -1,4 +1,6 @@
 #include <Adafruit_NeoPixel.h>
+#include <Wire.h>
+
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
@@ -48,6 +50,10 @@ uint32_t yellow = vents.Color(255, 255, 0);
 void setup() {
 
   Serial.begin(9600);
+  
+  Wire.begin(80);                // join i2c bus with address #8
+  Wire.onReceive(receiveEvent); // register event
+  
 
   frontspin.begin();
   frontspin.show(); // Initialize all pixels to 'off'
@@ -76,6 +82,45 @@ void setup() {
   slot.show(); // Initialize all pixels to 'off'
 
     //Serial.println(frontspin.numPixels());
+
+}
+
+// function that executes whenever data is received from master
+// this function is registered as an event, see setup()
+void receiveEvent(int howMany) {
+  while (1 < Wire.available()) { // loop through all but the last
+    char c = Wire.read(); // receive byte as a character
+    Serial.print(c);         // print the character
+  }
+  int x = Wire.read();    // receive byte as an integer
+  Serial.println(x);// print the integer
+  switch (x)
+  {
+    case 2: // OFF
+      SpinnersOff();
+      LeftGlow(0);
+      RightGlow(0);
+      CenterGlow(0);
+      slot_off();
+      vents_colour(0,0); 
+    break;
+    case 5:
+      LeftGlow(green);
+      RightGlow(green);
+      CenterGlow(green);
+    break;
+      case 4:
+      LeftGlow(red);
+      RightGlow(red);
+      CenterGlow(red);
+    break;
+      case 6:
+      LeftGlow(blue);
+      RightGlow(blue);
+      CenterGlow(blue);
+    break;
+  
+  }
 
 }
 // G R B W
@@ -111,16 +156,16 @@ void police()
 
 void loop() {
 
-police();
+//police();
 FrontSpinner();
   RearSpinner();
-  vents_colour(red,green);
+  //vents_colour(red,green);
     //slot_dot_up(blue,50);
     //slot_dot_down(blue,50);
     slot_dot_bounce(blue,10);
-    LeftGlow(magenta);
-    RightGlow(magenta);
-    CenterGlow(magenta);
+  //  LeftGlow(magenta);
+  //  RightGlow(magenta);
+  //  CenterGlow(magenta);
   
   //10 is fast
   delay(10);
