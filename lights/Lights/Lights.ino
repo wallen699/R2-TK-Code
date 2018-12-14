@@ -3,8 +3,11 @@
   #include <avr/power.h>
 #endif
 
-#define VENT_PIN 6
-#define SLOT_PIN 5
+#include <Wire.h>
+
+
+#define VENT_PIN 9
+#define SLOT_PIN 8
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
@@ -37,6 +40,9 @@ void setup() {
   #endif
   // End of trinket special code
 
+  Wire.begin(11);                // join i2c bus with address #8
+  Wire.onReceive(receiveEvent); // register event
+  Serial.begin(9600);           // start serial for output
 
   vents.begin();
   vents.setBrightness(255);
@@ -55,7 +61,7 @@ void loop()
  // vents_off();
  // slot_off();
  // delay(500);
-  vents_colour(red,green);
+  //vents_colour(red,green);
   slot_dot_up(blue,50);
   slot_dot_down(blue,50);
 
@@ -63,83 +69,29 @@ void loop()
   
 }
 
-void vents_colour(uint32_t tcolour,uint32_t bcolour)
-{
-   vents.setPixelColor(0, tcolour);
-    vents.setPixelColor(1, bcolour);
-   
-    //Display
-    vents.show();
-}
+void receiveEvent(int howMany) {
+  //while (1 < Wire.available()) { // loop through all but the last
+  //  char c = Wire.read(); // receive byte as a character
+  //  Serial.print(c);         // print the character
+  //}
+  int x = Wire.read();    // receive byte as an integer
+  Serial.println(x);         // print the integer
 
-
-void vents_off()
-{
-       
-   vents.setPixelColor(0, 0);
-    vents.setPixelColor(1, 0);
-   
-    //Display
-    vents.show();
-}
-
-void slot_off()
-{
-    //Clear All pixels
-    for (uint16_t ii=0; ii < slot.numPixels(); ii++)
-    {
-        slot.setPixelColor(ii, 0);        //turn every  pixel off
-    }
-    //Display
-    slot.show();
-}
-
-void slot_colour(uint32_t colour)
-{
-    //Set All pixels
-    for (uint16_t ii=0; ii < slot.numPixels(); ii++)
-    {
-        slot.setPixelColor(ii, colour);        //turn every  pixel off
-    }
-    //Display
-    slot.show();
-}
-
-// Fill the dots one after the other with a color
-void slot_dot_down(uint32_t c, uint8_t wait)
-{
-  for(uint16_t i=0; i<slot.numPixels(); i++)
-  {
-    //Clear All pixels
-    slot_off();
-    
-    //Set Pixel
-    slot.setPixelColor(i, c);
-    
-    //Display
-    slot.show();
-    
-    delay(wait);
+  switch (x) {
+  case 2:
+    vents_off();
+    slot_off;
+  break;
+  case 4:
+    vents_colour(red,red);
+    break;
   }
 }
 
-// Fill the dots one after the other with a color
-void slot_dot_up(uint32_t c, uint8_t wait)
-{
-  for(uint16_t i=slot.numPixels()+1;i>0; i--)
-  {
-    //Clear All pixels
-    slot_off();
-    
-    //Set Pixel
-    slot.setPixelColor(i-1, c);
-    
-    //Display
-    slot.show();
-    
-    delay(wait);
-  }
-}
+
+
+
+
 void DotA(uint32_t c, uint8_t wait)
 {
   //for(uint16_t i=strip.numPixels()+1; i>0; i--)
