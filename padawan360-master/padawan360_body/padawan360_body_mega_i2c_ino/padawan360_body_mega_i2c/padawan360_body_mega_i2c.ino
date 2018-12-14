@@ -317,11 +317,13 @@ void loop() {
   if (Xbox.getButtonClick(UP, 0)) {
     if (Xbox.getButtonPress(L1, 0)) {
       triggerI2C(10, 24);
+      triggerI2C(80,24);
     }
   }
   if (Xbox.getButtonClick(DOWN, 0)) {
     if (Xbox.getButtonPress(L1, 0)) {
       triggerI2C(10, 25);
+      triggerI2C(80,25);
     }
   }
 
@@ -385,6 +387,9 @@ void loop() {
       mp3Trigger.play(11);
       //logic lights, alarm2Display
       triggerI2C(10, 11);
+    }
+    else if (Xbox.getButtonPress(R2, 0)) {
+           triggerI2C(80, 5);
     } else {
       mp3Trigger.play(random(17, 25));
       //logic lights, random
@@ -410,6 +415,10 @@ void loop() {
       triggerI2C(25, 10);
       triggerI2C(26, 10);
       triggerI2C(27, 10);
+    }
+    else if (Xbox.getButtonPress(R2, 0)) {
+           triggerI2C(80, 4);
+      
     } else {
       mp3Trigger.play(random(32, 52));
       //logic lights, random
@@ -434,6 +443,10 @@ void loop() {
       mp3Trigger.play(12);
       //logic lights, random
       triggerI2C(10, 0);
+    }
+    else if (Xbox.getButtonPress(R2, 0)) {
+           triggerI2C(80, 6);
+    
     } else {
       mp3Trigger.play(random(25, 32));
       //logic lights, random
@@ -449,11 +462,13 @@ void loop() {
       // turn hp light off
       // Front HPEvent 2 - ledOFF - I2C
       triggerI2C(25, 2);
+      triggerI2C(80,2);
     } else {
       isHPOn = true;
       // turn hp light on
       // Front HPEvent 4 - whiteOn - I2C
       triggerI2C(25, 1);
+      triggerI2C(80,1);
     }
   }
 
